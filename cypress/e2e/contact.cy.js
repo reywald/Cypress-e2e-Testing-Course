@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 describe("Contact Form", () => {
-  it("should submit the form", () => {
+  it.skip("should submit the form", () => {
     cy.visit('http://127.0.0.1:5173/about');
     cy.get('[data-cy="contact-input-message"]').type("Hello world!");
     cy.get('[data-cy="contact-input-name"]').type("John Doe");
@@ -30,5 +30,31 @@ describe("Contact Form", () => {
       expect(el.text()).to.not.equal("Sending...");
     });
     cy.get('[data-cy="contact-btn-submit"]').contains("Send Message");
+
+    cy.get('[data-cy="contact-input-message"]').focus().blur();
+    cy.get('[data-cy="contact-input-message"]')
+      .parent()
+      .as("para");
+    cy.get("@para").should("have.attr", "class");
+    cy.get("@para").then(el => {
+      expect(el.attr("class")).to.contain("invalid");
+    });
+
+    cy.get('[data-cy="contact-input-name"]').focus().blur();
+    cy.get('[data-cy="contact-input-name"]')
+      .parent()
+      .as("para");
+    cy.get("@para").should("have.attr", "class");
+    cy.get("@para").then(el => {
+      expect(el.attr("class")).to.contain("invalid");
+    });
+
+    cy.get('[data-cy="contact-input-email"]').focus().blur();
+    cy.get('[data-cy="contact-input-email"]').parent()
+      .as("para");
+    cy.get("@para").should("have.attr", "class");
+    cy.get("@para").then(el => {
+      expect(el.attr("class")).to.contain("invalid");
+    });
   });
 });

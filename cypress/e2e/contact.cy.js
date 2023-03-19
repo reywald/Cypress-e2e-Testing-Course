@@ -1,8 +1,11 @@
 /// <reference types="Cypress" />
 
 describe("Contact Form", () => {
-  it.skip("should submit the form", () => {
-    cy.visit('/about');
+  beforeEach(() => {
+    cy.visit("/about");
+  });
+
+  it("should submit the form", () => {
     cy.get('[data-cy="contact-input-message"]').type("Hello world!");
     cy.get('[data-cy="contact-input-name"]').type("John Doe");
 
@@ -18,7 +21,6 @@ describe("Contact Form", () => {
   });
 
   it("should validate the form input", () => {
-    cy.visit('/about');
     cy.get('[data-cy="contact-btn-submit"]').click();
     cy.get('[data-cy="contact-btn-submit"]').then(el => {
       expect(el).to.not.have.attr("disabled");

@@ -6,6 +6,9 @@ describe("Contact Form", () => {
   });
 
   it("should submit the form", () => {
+    cy.task("seedDatabase", "seed.sql").then(filename => {
+      // do nothing
+    });
     cy.getById("contact-input-message").type("Hello world!");
     cy.getById("contact-input-name").type("John Doe");
 
